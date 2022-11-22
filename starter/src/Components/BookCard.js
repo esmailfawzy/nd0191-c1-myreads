@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import PropTypes from "prop-types";
 const BookCard = ({ book, handleUpdate }) => {
   return (
     <div className="book">
@@ -14,7 +15,7 @@ const BookCard = ({ book, handleUpdate }) => {
         ></div>
         <div className="book-shelf-changer">
           <select
-            value={book?.shelf || "none"}
+            value={book?.shelf}
             onChange={(e) => {
               e.preventDefault();
               handleUpdate(book, e.target.value);
@@ -26,14 +27,20 @@ const BookCard = ({ book, handleUpdate }) => {
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
             <option value="read">Read</option>
-            {book?.shelf && <option value="none">None</option>}
+            <option value="none">None</option>
           </select>
         </div>
       </div>
       <div className="book-title">{book?.title}</div>
-      <div className="book-authors">{book?.authors}</div>
+      <div className="book-authors">{book?.authors?.join(", ")}</div>
     </div>
   );
+};
+
+BookCard.propTypes = {
+  book: PropTypes.object.isRequired,
+
+  handleUpdate: PropTypes.func.isRequired,
 };
 
 export default BookCard;

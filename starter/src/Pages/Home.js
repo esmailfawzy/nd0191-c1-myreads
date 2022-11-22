@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import { getAll, update } from "../BooksAPI";
 import BookCard from "../Components/BookCard";
+import Shelf from "../Components/Shelf";
 const Home = () => {
   const [allBooks, setAllBooks] = useState([]);
   useEffect(() => {
@@ -12,7 +13,7 @@ const Home = () => {
   const getAllBooks = async () => {
     const res = await getAll();
     setAllBooks(res);
-    console.log("res from home", res);
+    console.log("res", res);
   };
 
   const handleUpdate = async (book, shelf) => {
@@ -27,48 +28,35 @@ const Home = () => {
       </div>
       <div className="list-books-content">
         <div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                {allBooks
-                  .filter((book) => book.shelf === "currentlyReading")
-                  .map((item) => (
-                    <li key={`book-${item?.id}-${item?.name}`}>
-                      <BookCard book={item} handleUpdate={handleUpdate} />
-                    </li>
-                  ))}
-              </ol>
-            </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Want to Read</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                {allBooks
-                  .filter((book) => book.shelf === "wantToRead")
-                  .map((item) => (
-                    <li key={`book-${item?.id}-${item?.name}`}>
-                      <BookCard book={item} handleUpdate={handleUpdate} />
-                    </li>
-                  ))}
-              </ol>
-            </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Read</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                {allBooks
-                  .filter((book) => book.shelf === "read")
-                  .map((item) => (
-                    <li key={`book-${item?.id}-${item?.name}`}>
-                      <BookCard book={item} handleUpdate={handleUpdate} />
-                    </li>
-                  ))}
-              </ol>
-            </div>
-          </div>
+          <Shelf title={"Currently Reading"}>
+            {allBooks
+              .filter((book) => book.shelf === "currentlyReading")
+              .map((item) => (
+                <li key={`book-${item?.id}-${item?.name}`}>
+                  <BookCard book={item} handleUpdate={handleUpdate} />
+                </li>
+              ))}
+          </Shelf>
+
+          <Shelf title={"Want to Read"}>
+            {allBooks
+              .filter((book) => book.shelf === "wantToRead")
+              .map((item) => (
+                <li key={`book-${item?.id}-${item?.name}`}>
+                  <BookCard book={item} handleUpdate={handleUpdate} />
+                </li>
+              ))}
+          </Shelf>
+
+          <Shelf title={"Read"}>
+            {allBooks
+              .filter((book) => book.shelf === "read")
+              .map((item) => (
+                <li key={`book-${item?.id}-${item?.name}`}>
+                  <BookCard book={item} handleUpdate={handleUpdate} />
+                </li>
+              ))}
+          </Shelf>
         </div>
       </div>
       <div className="open-search">
