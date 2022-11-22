@@ -15,14 +15,14 @@ const BookCard = ({ book, handleUpdate }) => {
         ></div>
         <div className="book-shelf-changer">
           <select
-            value={book?.shelf}
+            value={book?.shelf || "none"}
             onChange={(e) => {
               e.preventDefault();
               handleUpdate(book, e.target.value);
             }}
           >
             <option value="none" disabled>
-              {book?.shelf ? `Move to...` : `Add to...`}
+              Move to...
             </option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

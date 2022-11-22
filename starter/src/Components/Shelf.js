@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import PropTypes from "prop-types";
 
 const Shelf = ({ title, children }) => {
   return (
@@ -10,6 +11,11 @@ const Shelf = ({ title, children }) => {
       </div>
     </div>
   );
+};
+
+Shelf.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Shelf;

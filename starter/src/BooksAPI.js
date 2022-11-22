@@ -35,6 +35,7 @@ export const search = (query, maxResults) =>
     headers: {
       ...headers,
       "Content-Type": "application/json",
+      Accept: "application/json",
     },
     body: JSON.stringify({ query, maxResults }),
   })
